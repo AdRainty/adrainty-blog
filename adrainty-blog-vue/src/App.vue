@@ -7,9 +7,8 @@
 				<h2 class="ui teal header item">AdRaitny Blog</h2>
 				<router-link to="/index"><a href="#" :class="indexClass"><i class="el-icon-s-home"></i>首页</a></router-link>
 				<router-link to="/types"><a href="#" :class="typeClass"><i class="el-icon-s-order"></i>分类</a></router-link>
-				<router-link to="/tags"><a href="#" :class="tagClass"><i class="el-icon-edit"></i>标签</a></router-link>
-				<router-link to="/archives"><a href="#" :class="archivesClass"><i class="el-icon-document"></i>归档</a></router-link>
-				<router-link to="/about"><a href="#" :class="aboutClass"><i class="el-icon-user-solid"></i>关于我</a></router-link>
+				<router-link to="/tags"><a href="#" :class="tagClass"><i class="el-icon-collection-tag"></i>标签</a></router-link>
+				<router-link to="/archives"><a href="#" :class="archivesClass"><i class="el-icon-reading"></i>归档</a></router-link>
 	
 				<div class="right m-item item m-mobile-hide">
 					<div class="ui icon inverted transparent input">
@@ -77,7 +76,6 @@
 			typeClass : "m-item item m-mobile-hide",
 			tagClass : "m-item item m-mobile-hide",
 			archivesClass : "m-item item m-mobile-hide",
-			aboutClass : "m-item item m-mobile-hide",
 		}
 	  },
 	  created() {
@@ -102,9 +100,6 @@
 		  toArchives(){
 			this.$router.push({path:'/archives'})
 		  },
-		  toAbout(){
-			this.$router.push({path:'/about'})
-		  },
 		  
 		  changeActive(){
 			  if (this.$route.path == '/index' || this.$route.path == '/') {
@@ -115,8 +110,6 @@
 				  this.isActive = 3;
 			  } else if (this.$route.path == '/archives') {
 				  this.isActive = 4;
-			  } else if (this.$route.path == '/about') {
-				  this.isActive = 5;
 			  }
 		  },
 		  changeClass(){
@@ -124,7 +117,6 @@
 			  this.typeClass = this.isActive == 2? this.activeClass: this.defaultClass;
 			  this.tagClass = this.isActive == 3? this.activeClass: this.defaultClass;
 			  this.archivesClass = this.isActive == 4? this.activeClass: this.defaultClass;
-			  this.aboutClass = this.isActive == 5? this.activeClass: this.defaultClass;
 		  }
 		  
 	  }
