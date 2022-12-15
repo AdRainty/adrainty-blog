@@ -14,21 +14,6 @@ for (let i = 0; i < Math.floor(Math.random() * 10 + 1); i++) {
     'createDate': '@datetime'
   }))
 }
-var scheduleDataList = []
-for (let i = 0; i < Math.floor(Math.random() * 10 + 1); i++) {
-  let name = Mock.Random.name()
-  scheduleDataList.push(Mock.mock({
-    'logId': '@increment',
-    'jobId': '@increment(1000)',
-    'beanName': name,
-    'methodName': name,
-    'params': '-',
-    'status|0-1': 1,
-    'error': null,
-    'times|1-1000': 1000,
-    'createTime': '@datetime'
-  }))
-}
 
 // 获取日志列表
 export function list () {
@@ -45,51 +30,6 @@ export function list () {
         'totalPage': 1,
         'currPage': 1,
         'list': dataList
-      }
-    }
-  }
-}
-
-// 获取定时任务日志列表
-export function scheduleList () {
-  return {
-    // isOpen: false,
-    url: '/sys/scheduleLog/list',
-    type: 'get',
-    data: {
-      'msg': 'success',
-      'code': 0,
-      'page': {
-        'totalCount': scheduleDataList.length,
-        'pageSize': 10,
-        'totalPage': 1,
-        'currPage': 1,
-        'list': scheduleDataList
-      }
-    }
-  }
-}
-
-// 获取定时任务日志信息
-export function scheduleInfo () {
-  let name = Mock.Random.name()
-  return {
-    // isOpen: false,
-    url: '/sys/scheduleLog/info',
-    type: 'get',
-    data: {
-      'msg': 'success',
-      'code': 0,
-      'log': {
-        'logId': 1225,
-        'jobId': 3,
-        'beanName': name,
-        'methodName': name,
-        'params': null,
-        'status': 1,
-        'error': `org.springframework.beans.factory.NoSuchBeanDefinitionException: No bean named '${name}' available`,
-        'times': Mock.Random.integer(1, 1000),
-        'createTime': Mock.Random.datetime
       }
     }
   }

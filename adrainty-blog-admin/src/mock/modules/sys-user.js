@@ -9,7 +9,6 @@ for (let i = 0; i < Math.floor(Math.random() * 10 + 1); i++) {
     'email': '@email',
     'mobile': /^1[0-9]{10}$/,
     'status': 1,
-    'roleIdList': null,
     'createUserId': 1,
     'createTime': 'datetime'
   }))

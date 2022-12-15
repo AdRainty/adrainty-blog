@@ -14,8 +14,10 @@
     "build": "gulp"
   },
   "dependencies": {
+    "@kangc/v-md-editor": "^1.7.11",
     "axios": "0.17.1",
     "babel-plugin-component": "0.10.1",
+    "babel-plugin-prismjs": "^2.1.0",
     "babel-polyfill": "6.26.0",
     "element-ui": "2.8.2",
     "gulp": "4.0.2",

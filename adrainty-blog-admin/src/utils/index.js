@@ -12,14 +12,6 @@ export function getUUID () {
 }
 
 /**
- * 是否有权限
- * @param {*} key
- */
-export function isAuth (key) {
-  return JSON.parse(sessionStorage.getItem('permissions') || '[]').indexOf(key) !== -1 || false
-}
-
-/**
  * 树形数据转换
  * @param {*} data
  * @param {*} id

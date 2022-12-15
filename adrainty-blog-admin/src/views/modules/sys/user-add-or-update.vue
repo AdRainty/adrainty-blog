@@ -19,11 +19,6 @@
       <el-form-item label="手机号" prop="mobile">
         <el-input v-model="dataForm.mobile" placeholder="手机号"></el-input>
       </el-form-item>
-      <el-form-item label="角色" size="mini" prop="roleIdList">
-        <el-checkbox-group v-model="dataForm.roleIdList">
-          <el-checkbox v-for="role in roleList" :key="role.roleId" :label="role.roleId">{{ role.roleName }}</el-checkbox>
-        </el-checkbox-group>
-      </el-form-item>
       <el-form-item label="状态" size="mini" prop="status">
         <el-radio-group v-model="dataForm.status">
           <el-radio :label="0">禁用</el-radio>
@@ -74,7 +69,6 @@
       }
       return {
         visible: false,
-        roleList: [],
         dataForm: {
           id: 0,
           userName: '',
@@ -83,7 +77,6 @@
           salt: '',
           email: '',
           mobile: '',
-          roleIdList: [],
           status: 1
         },
         dataRule: {
@@ -110,35 +103,25 @@
     methods: {
       init (id) {
         this.dataForm.id = id || 0
-        this.$http({
-          url: this.$http.adornUrl('/sys/role/select'),
-          method: 'get',
-          params: this.$http.adornParams()
-        }).then(({data}) => {
-          this.roleList = data && data.code === 0 ? data.list : []
-        }).then(() => {
-          this.visible = true
-          this.$nextTick(() => {
-            this.$refs['dataForm'].resetFields()
-          })
-        }).then(() => {
-          if (this.dataForm.id) {
-            this.$http({
-              url: this.$http.adornUrl(`/sys/user/info/${this.dataForm.id}`),
-              method: 'get',
-              params: this.$http.adornParams()
-            }).then(({data}) => {
-              if (data && data.code === 0) {
-                this.dataForm.userName = data.user.username
-                this.dataForm.salt = data.user.salt
-                this.dataForm.email = data.user.email
-                this.dataForm.mobile = data.user.mobile
-                this.dataForm.roleIdList = data.user.roleIdList
-                this.dataForm.status = data.user.status
-              }
-            })
-          }
+        this.visible = true
+        this.$nextTick(() => {
+          this.$refs['dataForm'].resetFields()
         })
+        if (this.dataForm.id) {
+          this.$http({
+            url: this.$http.adornUrl(`/sys/user/info/${this.dataForm.id}`),
+            method: 'get',
+            params: this.$http.adornParams()
+          }).then(({data}) => {
+            if (data && data.code === 0) {
+              this.dataForm.userName = data.user.username
+              this.dataForm.salt = data.user.salt
+              this.dataForm.email = data.user.email
+              this.dataForm.mobile = data.user.mobile
+              this.dataForm.status = data.user.status
+            }
+          })
+        }
       },
       // 表单提交
       dataFormSubmit () {
@@ -154,8 +137,7 @@
                 'salt': this.dataForm.salt,
                 'email': this.dataForm.email,
                 'mobile': this.dataForm.mobile,
-                'status': this.dataForm.status,
-                'roleIdList': this.dataForm.roleIdList
+                'status': this.dataForm.status
               })
             }).then(({data}) => {
               if (data && data.code === 0) {
