@@ -5,6 +5,7 @@ import store from '@/store'                   // api: https://github.com/vuejs/v
 import VueCookie from 'vue-cookie'            // api: https://github.com/alfhen/vue-cookie
 import ElementUI from 'element-ui';
 import '@/assets/scss/index.scss'
+import 'element-ui/lib/theme-chalk/index.css';
 import httpRequest from '@/utils/httpRequest' // api: https://github.com/axios/axios
 import cloneDeep from 'lodash/cloneDeep'
 import VMdEditor from '@kangc/v-md-editor';
