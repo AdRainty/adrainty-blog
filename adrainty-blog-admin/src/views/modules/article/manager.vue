@@ -6,56 +6,44 @@
         </el-form-item>
         <el-form-item>
           <el-button @click="getDataList()">查询</el-button>
-          <el-button type="primary" @click="addOrUpdateHandle()">新增</el-button>
           <el-button type="danger" @click="deleteHandle()" :disabled="dataListSelections.length <= 0">批量删除</el-button>
         </el-form-item>
       </el-form>
-      <el-table
-        :data="dataList"
+      <el-table :data="dataList"
         border
         v-loading="dataListLoading"
         @selection-change="selectionChangeHandle"
         style="width: 100%;">
-        <el-table-column
-          type="selection"
+        <el-table-column  type="selection"
           header-align="center"
           align="center"
-          width="50">
-        </el-table-column>
-        <el-table-column
-          prop="userId"
+          width="50"/>
+        <el-table-column prop="userId"
           header-align="center"
           align="center"
           width="80"
-          label="ID">
-        </el-table-column>
-        <el-table-column
-          prop="username"
+          label="ID"/>
+        <el-table-column prop="username"
           header-align="center"
           align="center"
-          label="文章名">
-        </el-table-column>
-        <el-table-column
-          prop="email"
+          label="文章名"/>
+        <el-table-column prop="email"
           header-align="center"
           align="center"
-          label="分类">
+          label="分类"/>
+        <el-table-column label="标签" header-align="center" prop="tags">
+          <template slot-scope="scope">
+            <el-tag :key="tag" v-for="tag in scope.row.tags">
+              {{tag}}
+            </el-tag>
+          </template>
         </el-table-column>
-        <el-table-column
-          prop="mobile"
-          header-align="center"
-          align="center"
-          label="标签">
-        </el-table-column>
-        <el-table-column
-          prop="createTime"
+        <el-table-column prop="createTime"
           header-align="center"
           align="center"
           width="180"
-          label="创建时间">
-        </el-table-column>
-        <el-table-column
-          fixed="right"
+          label="创建时间"/>
+        <el-table-column fixed="right"
           header-align="center"
           align="center"
           width="150"
@@ -86,7 +74,8 @@
       data () {
         return {
           dataForm: {
-            userName: ''
+            userName: '',
+            
           },
           dataList: [],
           pageIndex: 1,

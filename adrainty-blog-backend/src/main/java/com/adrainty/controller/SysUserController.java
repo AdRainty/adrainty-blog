@@ -48,7 +48,6 @@ public class SysUserController extends AbstractController{
 	public R list(@RequestParam Map<String, Object> params){
 		//只有超级管理员，才能查看所有管理员列表
 		PageUtils page = sysUserService.queryPage(params);
-
 		return R.ok().put("page", page);
 	}
 	
