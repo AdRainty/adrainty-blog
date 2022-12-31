@@ -4,11 +4,12 @@
 	<nav class="ui inverted segment m-padded-tb-mini">
 		<div class="ui container">
 			<div class="ui inverted secondary stackable menu">
-				<h2 class="ui teal header item">AdRaitny Blog</h2>
-				<router-link to="/index"><a href="#" :class="indexClass"><i class="el-icon-s-home"></i>首页</a></router-link>
-				<router-link to="/types"><a href="#" :class="typeClass"><i class="el-icon-s-order"></i>分类</a></router-link>
-				<router-link to="/tags"><a href="#" :class="tagClass"><i class="el-icon-collection-tag"></i>标签</a></router-link>
-				<router-link to="/archives"><a href="#" :class="archivesClass"><i class="el-icon-reading"></i>归档</a></router-link>
+				<h2 class="ui teal header item">AdRaitnyの小窝</h2>
+				<h3><router-link to="/index"><a href="#" :class="indexClass"><i class="el-icon-s-home"></i>首页</a></router-link></h3>
+				<h3><router-link to="/types"><a href="#" :class="typeClass"><i class="el-icon-s-order"></i>分类</a></router-link></h3>
+				<h3><router-link to="/tags"><a href="#" :class="tagClass"><i class="el-icon-collection-tag"></i>标签</a></router-link></h3>
+				<h3><router-link to="/archives"><a href="#" :class="archivesClass"><i class="el-icon-reading"></i>归档</a></router-link></h3>
+				<h3><router-link to="/chat"><a href="#" :class="chatClass"><i class="el-icon-s-comment"></i>留言</a></router-link></h3>
 	
 				<div class="right m-item item m-mobile-hide">
 					<div class="ui icon inverted transparent input">
@@ -76,6 +77,7 @@
 			typeClass : "m-item item m-mobile-hide",
 			tagClass : "m-item item m-mobile-hide",
 			archivesClass : "m-item item m-mobile-hide",
+			chatClass : "m-item item m-mobile-hide",
 		}
 	  },
 	  created() {
@@ -100,6 +102,9 @@
 		  toArchives(){
 			this.$router.push({path:'/archives'})
 		  },
+		  toChat(){
+			this.$router.push({path:'/chat'})
+		  },
 		  
 		  changeActive(){
 			  if (this.$route.path == '/index' || this.$route.path == '/') {
@@ -110,6 +115,8 @@
 				  this.isActive = 3;
 			  } else if (this.$route.path == '/archives') {
 				  this.isActive = 4;
+			  } else if (this.$route.path == '/chat') {
+				  this.isActive = 5;
 			  }
 		  },
 		  changeClass(){
@@ -117,6 +124,7 @@
 			  this.typeClass = this.isActive == 2? this.activeClass: this.defaultClass;
 			  this.tagClass = this.isActive == 3? this.activeClass: this.defaultClass;
 			  this.archivesClass = this.isActive == 4? this.activeClass: this.defaultClass;
+			  this.chatClass = this.isActive == 5? this.activeClass: this.defaultClass;
 		  }
 		  
 	  }

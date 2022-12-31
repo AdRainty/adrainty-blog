@@ -61,22 +61,7 @@
 	            <!--赞赏-->
 	            <div class="ui center aligned basic segment">
 	                <button id="payButton" class="ui orange basic circular button">赞赏</button>
-	            </div>
-	
-	            <div class="ui payQ flowing popup  transition hidden">
-	                <div class="ui orange basic label">
-	                    <div class="ui images" style="font-size: inherit !important;">
-	                        <div class="image">
-	                            <img src="../../static/images/weixin.jpg" alt="" class="ui rounded bordered image" style="width: 120px;">
-	                            <div>支付宝支付</div>
-	                        </div>
-	                        <div class="image">
-	                            <img src="../../static/images/weixin.jpg" alt="" class="ui rounded bordered image" style="width: 120px;">
-	                            <div>微信支付</div>
-	                        </div>
-	                    </div>
-	                </div>
-	            </div>
+				</div>
 
 	        </div>
 	

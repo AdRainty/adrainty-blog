@@ -5,6 +5,7 @@ import archives from '@/components/archives'
 import tags from '@/components/tags'
 import types from '@/components/types'
 import blog from '@/components/blog'
+import chat from '@/components/chat'
 
 Vue.use(Router)
 
@@ -39,6 +40,11 @@ export default new Router({
 			path: '/blog',
 			name: 'blog',
 			component: blog
+		},
+		{
+			path: '/chat',
+			name: 'chat',
+			component: chat
 		}
   ]
 })
