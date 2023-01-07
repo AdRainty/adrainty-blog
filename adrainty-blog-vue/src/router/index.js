@@ -6,6 +6,7 @@ import tags from '@/components/tags'
 import types from '@/components/types'
 import blog from '@/components/blog'
 import chat from '@/components/chat'
+import dymic from '@/components/dymic'
 
 Vue.use(Router)
 
@@ -45,6 +46,11 @@ export default new Router({
 			path: '/chat',
 			name: 'chat',
 			component: chat
-		}
+		},
+		{
+			path: '/dymic',
+			name: 'dymic',
+			component: dymic
+		},
   ]
 })

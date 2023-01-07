@@ -240,7 +240,6 @@
 		  toBlog(){
 			this.$router.push({path:'/blog'})
 		  },
-		  
 	  }
 	}
 </script>

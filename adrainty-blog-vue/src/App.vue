@@ -10,6 +10,7 @@
 				<h3><router-link to="/tags"><a href="#" :class="tagClass"><i class="el-icon-collection-tag"></i>标签</a></router-link></h3>
 				<h3><router-link to="/archives"><a href="#" :class="archivesClass"><i class="el-icon-reading"></i>归档</a></router-link></h3>
 				<h3><router-link to="/chat"><a href="#" :class="chatClass"><i class="el-icon-s-comment"></i>留言</a></router-link></h3>
+				<h3><router-link to="/dymic"><a href="#" :class="dymicClass"><i class="el-icon-star-on"></i>动态</a></router-link></h3>
 	
 				<div class="right m-item item m-mobile-hide">
 					<div class="ui icon inverted transparent input">
@@ -78,6 +79,7 @@
 			tagClass : "m-item item m-mobile-hide",
 			archivesClass : "m-item item m-mobile-hide",
 			chatClass : "m-item item m-mobile-hide",
+			dymicClass: "m-item item m-mobile-hide",
 		}
 	  },
 	  created() {
@@ -105,6 +107,9 @@
 		  toChat(){
 			this.$router.push({path:'/chat'})
 		  },
+		  toDymic(){
+			this.$router.push({path:'/dymic'})
+		  },
 		  
 		  changeActive(){
 			  if (this.$route.path == '/index' || this.$route.path == '/') {
@@ -117,6 +122,8 @@
 				  this.isActive = 4;
 			  } else if (this.$route.path == '/chat') {
 				  this.isActive = 5;
+			  } else if (this.$route.path == '/dymic') {
+				  this.isActive = 6;
 			  }
 		  },
 		  changeClass(){
@@ -125,6 +132,7 @@
 			  this.tagClass = this.isActive == 3? this.activeClass: this.defaultClass;
 			  this.archivesClass = this.isActive == 4? this.activeClass: this.defaultClass;
 			  this.chatClass = this.isActive == 5? this.activeClass: this.defaultClass;
+			  this.dymicClass = this.isActive == 6? this.activeClass: this.defaultClass;
 		  }
 		  
 	  }

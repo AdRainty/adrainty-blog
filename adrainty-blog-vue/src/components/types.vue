@@ -13,39 +13,11 @@
 	            </div>
 	        </div>
 	
+			<!-- 集合展示 -->
 	        <div class="ui attached segment m-padded-tb-large">
-	            <div class="ui labeled button m-margin-tb-tiny" tabindex="0">
-	                <a href="#" class="ui basic teal button">思考与感悟</a>
-	                <div class="ui basic teal left pointing label">24</div>
-	
-	            </div>
-	            <div class="ui labeled button m-margin-tb-tiny" tabindex="0">
-	                <a href="#" class="ui basic  button">思考与感悟</a>
-	                <div class="ui basic  left pointing label">24</div>
-	            </div>
-	            <div class="ui labeled button m-margin-tb-tiny" tabindex="0">
-	                <a href="#" class="ui basic  button">思考与感悟</a>
-	                <div class="ui basic  left pointing label">24</div>
-	            </div>
-	            <div class="ui labeled button m-margin-tb-tiny" tabindex="0">
-	                <a href="#" class="ui basic  button">思考与感悟</a>
-	                <div class="ui basic  left pointing label">24</div>
-	            </div>
-	            <div class="ui labeled button m-margin-tb-tiny" tabindex="0">
-	                <a href="#" class="ui basic  button">思考与感悟</a>
-	                <div class="ui basic  left pointing label">24</div>
-	            </div>
-	            <div class="ui labeled button m-margin-tb-tiny" tabindex="0">
-	                <a href="#" class="ui basic  button">思考与感悟</a>
-	                <div class="ui basic  left pointing label">24</div>
-	            </div>
-	            <div class="ui labeled button m-margin-tb-tiny" tabindex="0">
-	                <a href="#" class="ui basic  button">思考与感悟</a>
-	                <div class="ui basic  left pointing label">24</div>
-	            </div>
-	            <div class="ui labeled button m-margin-tb-tiny" tabindex="0">
-	                <a href="#" class="ui basic  button">思考与感悟</a>
-	                <div class="ui basic  left pointing label">24</div>
+	            <div class="ui labeled button m-margin-tb-tiny" tabindex="0" v-for="category, catIndex in categories" :key="catIndex">
+	                <a href="#" class="ui basic teal button"> {{ categories[catIndex].catName }}</a>
+	                <div class="ui basic teal left pointing label"> {{ categories[catIndex].catCount }}</div>
 	            </div>
 	        </div>
 	
@@ -129,15 +101,13 @@
 	
 	        </div>
 	
+			<!-- 分页 -->
 	        <div class="ui bottom attached segment">
-	            <div class="ui middle aligned two column grid">
-	                <div class="column">
-	                    <a href="#" class="ui mini teal basic button">上一页</a>
-	                </div>
-	                <div class="right aligned column">
-	                    <a href="#" class="ui mini teal basic button">下一页</a>
-	                </div>
-	            </div>
+	            <el-pagination
+					background
+					layout="prev, pager, next"
+					:total="1000">
+				</el-pagination>
 	        </div>
 	
 	    </div>
@@ -149,6 +119,28 @@
 </template>
 
 <script>
+	export default {
+	  data() {
+	  	return {
+			categories: [],
+		}
+	  },
+	  created() {
+		this.getCatagory();
+	  },
+	  methods:{
+		  // :class="{active: isActive === index}"
+		  getCatagory(){
+			this.$http({
+				url: this.$http.adornUrl('/api/category/list'),
+				method: 'get',
+				params: this.$http.adornParams({})
+			}).then(({data}) => {
+				this.categories = data.categories;
+			})
+		  }
+	  }
+	}
 </script>
 
 <style>

@@ -1,6 +1,6 @@
 package com.adrainty.dao;
 
-import com.adrainty.entity.CategoryEntity;
+import com.adrainty.entity.ChatEntity;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import org.apache.ibatis.annotations.Mapper;
 
@@ -9,8 +9,8 @@ import org.apache.ibatis.annotations.Mapper;
  *
  * @author AdRainty
  * @version V1.0.0
- * @date 2022/12/10 23:19
+ * @date 2023/1/7 22:10
  */
 @Mapper
-public interface CategoryDao extends BaseMapper<CategoryEntity> {
+public interface ChatDao extends BaseMapper<ChatEntity> {
 }

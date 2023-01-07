@@ -1,6 +1,6 @@
 package com.adrainty.service;
 
-import com.adrainty.entity.Category;
+import com.adrainty.entity.CategoryEntity;
 import com.baomidou.mybatisplus.extension.service.IService;
 
 /**
@@ -10,5 +10,5 @@ import com.baomidou.mybatisplus.extension.service.IService;
  * @version V1.0.0
  * @date 2022/12/10 23:22
  */
-public interface CategoryService extends IService<Category> {
+public interface CategoryService extends IService<CategoryEntity> {
 }

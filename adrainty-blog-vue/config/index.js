@@ -20,6 +20,15 @@ module.exports = {
     notifyOnErrors: true,
     poll: false, // https://webpack.js.org/configuration/dev-server/#devserver-watchoptions-
 
+    proxyTable: devEnv.OPEN_PROXY === false ? {} : {
+      '/proxyApi': {
+        target: 'http://demo.renren.io/renren-fast/',
+        changeOrigin: true,
+        pathRewrite: {
+          '^/proxyApi': '/'
+        }
+      }
+    },
     
     /**
      * Source Maps
