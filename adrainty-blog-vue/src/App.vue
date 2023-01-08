@@ -1,5 +1,63 @@
 <template>
   <div id="app">
+	<el-dialog title="登录 & 注册" :visible.sync="dialogFormVisible">
+		<el-tabs v-model="activeName" @tab-click="handleClick">
+
+			<el-tab-pane label="登录" name="login">
+				<el-form :model="form">
+					<el-form-item label="用户名" >
+					<el-input v-model="form.name" autocomplete="off"></el-input>
+					</el-form-item>
+					<el-form-item label="密码" >
+					<el-input v-model="form.region" autocomplete="off" show-password></el-input>
+					</el-form-item>
+				</el-form>
+
+				<div class="dialog-footer">
+					<el-button @click="dialogFormVisible = false">取 消</el-button>
+					<el-button type="primary" @click="dialogFormVisible = false">登 录</el-button>
+				</div>
+			</el-tab-pane>
+
+			<el-tab-pane label="注册" name="regiest">
+				<el-form :model="form">
+					<el-form-item label="用户名" >
+					<el-input v-model="form.name" autocomplete="off"></el-input>
+					</el-form-item>
+					<el-form-item label="密码" >
+					<el-input v-model="form.region" autocomplete="off" show-password></el-input>
+					</el-form-item>
+					<el-form-item label="确认密码" >
+					<el-input v-model="form.region" autocomplete="off" show-password></el-input>
+					</el-form-item>
+					<el-form-item label="邮箱" >
+					<el-input v-model="form.region" autocomplete="off"></el-input>
+					</el-form-item>
+					验证码
+					<el-form-item >
+						<el-row :gutter="20">
+							<el-col :span="10">
+								<el-input v-model="form.name" autocomplete="off"></el-input>
+							</el-col>
+							<el-col :span="10" class="login-captcha" style="margin-left: 10px">
+								<img :src="captchaPath" @click="getCaptcha()" alt="">
+							</el-col>
+              			</el-row>
+					</el-form-item>
+				</el-form>
+
+				<div class="dialog-footer">
+					<el-button @click="dialogFormVisible = false">取 消</el-button>
+					<el-button type="primary" @click="dialogFormVisible = false">注 册</el-button>
+				</div>
+			</el-tab-pane>
+
+			
+
+		</el-tabs>
+
+	</el-dialog>
+
 	<!--导航-->
 	<nav class="ui inverted segment m-padded-tb-mini">
 		<div class="ui container">
@@ -14,12 +72,24 @@
 	
 				<div class="right m-item item m-mobile-hide">
 					<div class="ui icon inverted transparent input">
-						<input type="text" placeholder="search....">
-						<i class="el-icon-search"></i>
+						<el-autocomplete
+						class="inline-input"
+						v-model="query"
+						:fetch-suggestions="querySearch"
+						placeholder="请输入内容"
+						:trigger-on-focus="false"
+						@select="handleSelect"
+						suffix-icon="el-icon-search"
+						></el-autocomplete>
+						
 					</div>
 				</div>
+
+				<h3><a href="#" class="m-item item m-mobile-hide" @click="dialogFormVisible=true;getCaptcha()"><i class="el-icon-user"></i></a></h3>
+				
 	
 			</div>
+			
 		</div>
 	
 		<a href="#" class="ui menu toggle black icon button m-right-top m-mobile-show">
@@ -67,6 +137,7 @@
 </template>
 
 <script>
+import { getUUID } from '@/utils'
 	export default {
 	  name: 'App',
 	  data() {
@@ -80,6 +151,21 @@
 			archivesClass : "m-item item m-mobile-hide",
 			chatClass : "m-item item m-mobile-hide",
 			dymicClass: "m-item item m-mobile-hide",
+			query:"",
+			dialogFormVisible:false,
+			form: {
+				uuid: '',
+				name: '',
+				region: '',
+				date1: '',
+				date2: '',
+				delivery: false,
+				type: [],
+				resource: '',
+				desc: ''
+			},
+			activeName: "login",
+			captchaPath: ''
 		}
 	  },
 	  created() {
@@ -90,6 +176,7 @@
 		  this.changeActive();
 		this.changeClass();
 	  },
+	  
 	  methods:{
 		  // :class="{active: isActive === index}"
 		  toIndex(){
@@ -133,7 +220,30 @@
 			  this.archivesClass = this.isActive == 4? this.activeClass: this.defaultClass;
 			  this.chatClass = this.isActive == 5? this.activeClass: this.defaultClass;
 			  this.dymicClass = this.isActive == 6? this.activeClass: this.defaultClass;
-		  }
+		  },
+		  handleSelect(item) {
+			  console.log(item);
+		  },
+		  querySearch (queryString, cb){
+			var results = [{
+				value: "666"
+			}, {
+				value: "666"
+			}]
+			// 调用 callback 返回建议列表的数据
+			cb(results);
+		  },
+		  // 获取验证码
+		  // 获取验证码
+		  getCaptcha () {
+			this.form.uuid = getUUID()
+			this.captchaPath = this.$http.adornUrl(`/captcha.jpg?uuid=${this.form.uuid}`)
+		},
+		handleClick(tab, event) {
+			if (tab.index == '1') this.getCaptcha()
+		}
+		
+		
 		  
 	  }
 	}

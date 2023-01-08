@@ -47,7 +47,7 @@
 	                            <div class="actions">
 									<a class="reply"><i class="el-icon-star-on"></i>点赞({{ comment.chatAgree }})</a>
 									<a class="reply" @click="showCommentBlock(comment.chatId, index)"><i class="el-icon-chat-round"></i>评论({{ comment.chatComment }})</a>
-									<a class="reply"><i class="el-icon-chat-round"></i>回复</a>
+									<a class="reply" @click="replyComment(index, comment.chatName)"><i class="el-icon-chat-round"></i>回复</a>
 	                            </div>
 	                        </div>
 
@@ -57,18 +57,23 @@
 										<img src="../../static/images/weixin.jpg">
 									</a>
 									<div class="content">
-										<a class="author">Jenny Hess</a>
+										<a class="author"> {{ replyData.chatName }}</a>
 										<div class="metadata">
 											<span class="date">Just now</span>
 										</div>
 										<div class="text">
-											Elliot you are always so right :)
+											{{ replyData.chatMessage }}
 										</div>
 										<div class="actions">
 											<a class="reply" ><i class="el-icon-star-on"></i>点赞({{ comment.chatAgree }})</a>
-											<a class="reply"><i class="el-icon-chat-round"></i>回复</a>
+											<a class="reply" @click="replyComment(replyData.chatId, replyData.chatName)"><i class="el-icon-chat-round"></i>回复</a>
 										</div>
 									</div>
+									<el-pagination
+									background
+									layout="prev, pager, next"
+									:total="comment.chatComment">
+									</el-pagination>
 								</div>
 							</div>
 	                        
@@ -79,21 +84,32 @@
 					<el-pagination
 						background
 						layout="prev, pager, next"
-						:total="1000">
+						:total="totalCount">
 						</el-pagination>
 	            </div>
 	
 	            <div class="ui form">
 	                <div class="field">
-	                    <textarea name="content" id="" cols="30" rows="10" placeholder="请输入评论信息"></textarea>
+						<el-tag closable v-model="comment.replyTo" style="margin-top: 10px; margin-bottom: 20px" v-show="isReply" @close="isReply=false">
+							{{ comment.replyTo }}
+						</el-tag>
+						<el-input
+							type="textarea"
+							:rows="10"
+							:cols="30"
+							placeholder="请输入内容"
+							ref="ipt"
+							v-model="comment.content">
+						</el-input>
 	                </div>
 	                <div class="fields">
 	                    <div class="field m-mobile-wide  m-margin-bottom-small">
-	                        <button class="ui teal button m-mobile-wide"><i class="el-icon-edit-outline"></i>发布</button>
+							<button class="ui teal button m-mobile-wide" @click="showEmoji = !showEmoji"><i class="el-icon-picture-outline-round"></i>表情</button>
+	                        <button class="ui teal button m-mobile-wide" @click="publishContent"><i class="el-icon-edit-outline"></i>发布</button>
 	                    </div>
 	                </div>
+					<picker v-show="showEmoji" :showSearch="false" :showPreview="false" :showCategories="true" @select="addEmoji" />
 	            </div>
-	
 	
 	        </div>
 	    </div>
@@ -103,12 +119,13 @@
 
 <script>
 import vueDanmaku from 'vue-danmaku'
-import Vue from 'vue';
+import { Picker } from "emoji-mart-vue";
 
 export default {
 	components: {
 	// 2. 注册
-		vueDanmaku
+		vueDanmaku,
+		Picker,
   	},
 	created() {
 		this.getChatList();
@@ -122,6 +139,16 @@ export default {
 			danmus: ['danmu1', 'danmu2', 'danmu3', '...'],
 			chatList: [],
 			showBlock: [ ],
+			totalCount: 0,
+			commentCount: [],
+			showEmoji: false,
+			isReply: false,
+			
+			comment: {
+				content: "",
+				replyTo: "",
+				parId: 0,
+			}
 		}
 	},
 	methods:{
@@ -133,7 +160,7 @@ export default {
 					type: 'success'
 				});
 				this.danmus.push(this.input);
-				this.input=""
+				this.input = ""
 			} else{
 				this.$message.error('请输入弹幕内容');
 			}
@@ -148,7 +175,6 @@ export default {
 				url: this.$http.adornUrl('/api/chat/page'),
 				method: 'get',
 				params: this.$http.adornParams({page: 1, limit: 10})
-				
 			}).then(({data}) => {
 				console.log(data)
 				this.chatList = data.page.list
@@ -165,15 +191,30 @@ export default {
 					params: this.$http.adornParams({page: 1, limit: 10, chatTo: index})
 				}).then(({data}) => {
 					console.log(data.page.list)
-					this.$set(this.showBlock, now, data.page.list)
+					this.$set(this.showBlock, now, data.page.list);
+					this.totalCount = data.page.totalCount;
+					for (let i = 0; i < data.page.list; i ++ ){
+						this.commentCount.push(data.page.list[i].totalCount);
+					}
 				})
 			}
-
-			
-			
-			console.log(this.showBlock)
-			
 			// console.log(this.showBlock)
+		},
+		// 表情添加进输入框
+		addEmoji(e) {
+			this.comment.content += e.native;
+		},
+		// 发布评论, 重新获取评论列表
+		publishContent() {
+			console.log(this.content)
+			getChatList()
+		},
+		// 点击回复按钮,输入框内容前面加上回复 + name + :
+		replyComment(index, name) {
+			this.isReply = true;
+			this.comment.replyTo = "回复 @" + name + " : " 
+			this.comment.parId = 'index'
+			this.$refs.ipt.focus();
 		}
 	},
 }

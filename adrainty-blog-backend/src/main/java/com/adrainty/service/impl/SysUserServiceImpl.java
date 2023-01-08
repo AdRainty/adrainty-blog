@@ -8,7 +8,6 @@
 
 package com.adrainty.service.impl;
 
-import com.adrainty.dao.SysUserDao;
 import com.adrainty.entity.SysUserEntity;
 import com.adrainty.service.SysUserService;
 import com.adrainty.utils.PageUtils;
@@ -24,7 +23,6 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Arrays;
 import java.util.Date;
-import java.util.List;
 import java.util.Map;
 
 

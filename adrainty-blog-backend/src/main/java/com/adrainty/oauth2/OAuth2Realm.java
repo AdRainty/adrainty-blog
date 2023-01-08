@@ -10,7 +10,6 @@ package com.adrainty.oauth2;
 
 import com.adrainty.entity.SysUserEntity;
 import com.adrainty.entity.SysUserTokenEntity;
-import com.adrainty.service.ShiroService;
 import org.apache.shiro.authc.*;
 import org.apache.shiro.authz.AuthorizationInfo;
 import org.apache.shiro.authz.SimpleAuthorizationInfo;

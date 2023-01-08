@@ -8,7 +8,6 @@
 
 package com.adrainty.service.impl;
 
-import com.adrainty.dao.SysUserTokenDao;
 import com.adrainty.entity.SysUserTokenEntity;
 import com.adrainty.service.SysUserTokenService;
 import com.adrainty.utils.R;

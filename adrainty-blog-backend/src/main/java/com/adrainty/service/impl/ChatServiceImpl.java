@@ -8,7 +8,6 @@ import com.adrainty.utils.Query;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-import org.apache.commons.lang.StringUtils;
 import org.springframework.stereotype.Service;
 
 import java.util.Map;
@@ -24,9 +23,12 @@ import java.util.Map;
 public class ChatServiceImpl extends ServiceImpl<ChatDao, ChatEntity> implements ChatService {
     @Override
     public PageUtils queryPage(Map<String, Object> params) {
+
+        String key = (String)params.get("key");
+
         IPage<ChatEntity> page = this.page(
-            new Query<ChatEntity>().getPage(params),
-            new QueryWrapper<ChatEntity>().eq("chat_to", 0)
+                new Query<ChatEntity>().getPage(params),
+                new QueryWrapper<ChatEntity>().eq("chat_to", 0)
         );
 
         return new PageUtils(page);
